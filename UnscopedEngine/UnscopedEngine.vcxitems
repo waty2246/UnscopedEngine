@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{315cc21e-63e8-4513-8483-0c86fb3f1501}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Components\CameraComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Common.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Core\IGraphicsObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\IGraphicsController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Components\TimerComponent.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\IDisposable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\IInitializable.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\Internal\SingletonServiceProvider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\ServiceBuilder.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\ServiceConsumer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Core\IServiceProvider.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11Common.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11ObjectBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11Texture2D.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11MatrixShaderBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Point.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11GraphicsController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11ShaderBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)System\IApplication.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)System\IEventHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)System\Internal\FullscreenWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)System\Internal\FlexibleWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)System\IFlexibleWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)System\IWindow.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)System\SystemController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)System\WindowBuilder.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Components\CameraComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Components\TimerComponent.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\Internal\SingletonServiceProvider.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\ServiceBuilder.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Core\ServiceConsumer.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11GraphicsController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11MatrixShaderBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11ObjectBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11ShaderBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11Texture2D.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)System\Internal\FullscreenWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)System\Internal\FlexibleWindow.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)System\SystemController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)System\WindowBuilder.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Graphics\Image.cpp" />
+  </ItemGroup>
+</Project>
