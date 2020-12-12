@@ -128,12 +128,30 @@ namespace ue
 				}
 				break;
 			}
+			case ImageColorFormat::R8G8B8:
+			{
+				textureData = std::make_unique<uint8_t[]>(bitmapWidth * bitmapHeight * 3);
+				for (size_t row = 0; row < bitmapHeight; ++row)
+				{
+					if (bottomLeft)
+					{
+						nextColor = bitmapSize - rowSize * (row + 1);
+					}
+
+					for (size_t col = 0; col < bitmapWidth; ++col)
+					{
+						textureData[indexTextureData] = imageData[nextColor + 2];
+						textureData[indexTextureData + 1] = imageData[nextColor + 1];
+						textureData[indexTextureData + 2] = imageData[nextColor];
+						nextColor += 3;
+						indexTextureData += 3;
+					}
+				}
+				break;
+			}
 			default:
 				LOGMSG("Image color format is not supported.", 0);
 		}
-
-		
-		
 
 		return std::make_tuple(std::move(textureData), static_cast<UINT>(bitmapWidth), static_cast<UINT>(bitmapHeight));
 	}

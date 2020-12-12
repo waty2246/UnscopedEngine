@@ -13,7 +13,8 @@ namespace ue
 	enum class ImageColorFormat
 	{
 		UNKNOW,
-		R8G8B8A8
+		R8G8B8,
+		R8G8B8A8		
 	};
 
 	class Image : public IInitializable
