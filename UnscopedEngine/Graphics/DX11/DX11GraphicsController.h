@@ -63,7 +63,8 @@ namespace ue
 		virtual ~DX11GraphicsController();
 
 	private:
-		void CreateDeviceAndSwapChain();
+		void CreateDevice(IDXGIAdapter* adapter=nullptr);
+		void CreateSwapChain(IDXGIFactory2* factory);
 		void CreateDepthStencilBuffer();
 		void CreateDepthStencilView();
 		void CreateRenderTargetView();
@@ -82,11 +83,9 @@ namespace ue
 
 		ServicePtr<IWindow> _window;
 
-		ComPtr<IDXGIFactory> _factory;
-		ComPtr<IDXGIAdapter> _adapter;
 		ComPtr<ID3D11Device> _device;
 		ComPtr<ID3D11DeviceContext> _deviceContext;
-		ComPtr<IDXGISwapChain> _swapChain;
+		ComPtr<IDXGISwapChain1> _swapChain;
 		ComPtr<ID3D11RenderTargetView> _renderTargetView;
 		ComPtr<ID3D11Texture2D> _depthStencilBuffer;
 		ComPtr<ID3D11DepthStencilState> _depthStencilDisabledState;

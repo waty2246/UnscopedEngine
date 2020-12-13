@@ -9,6 +9,8 @@
 //Mark the first initialize state inside an initializable class as not process.
 #define INITIALIZE_UNITTESTS_STATE uintptr_t(1)
 
+#define INITIALIZE_CONTINUE_STATE uintptr_t(2)
+
 namespace ue
 {
 	/// <summary>

@@ -1,3 +1,4 @@
+#include"DX11Config.h"
 #include "DX11GraphicsController.h"
 
 namespace ue
@@ -23,9 +24,9 @@ namespace ue
 		HRESULT hResult = HRESULT(0);
 		UINT numModes = 0;
 
-		ComPtr<IDXGIFactory> dxgiFactory;
-		ComPtr<IDXGIAdapter> dxgiAdapter;
-		ComPtr<IDXGIOutput> dxgiOutput;
+		ComPtr<IDXGIFactory2> factory;
+		ComPtr<IDXGIAdapter> adapter;
+		ComPtr<IDXGIOutput> output;
 
 		DXGI_ADAPTER_DESC adapterDesc = { 0 };
 		std::unique_ptr<DXGI_MODE_DESC[]> modeDescs;
@@ -33,19 +34,19 @@ namespace ue
 		//Get usage services
 		_window = this->GetService<IWindow>();
 
-		hResult = CreateDXGIFactory(__uuidof(IDXGIFactory), reinterpret_cast<void**>(dxgiFactory.GetAddressOf()));
+		hResult = CreateDXGIFactory1(IID_PPV_ARGS(factory.GetAddressOf()));
 		if (FAILED(hResult))
 		{
 			LOGMSG("CreateDXGIFactory failed.", hResult);
 		}
 
-		hResult = dxgiFactory->EnumAdapters(0, dxgiAdapter.GetAddressOf());
+		hResult = factory->EnumAdapters(0, adapter.GetAddressOf());
 		if (FAILED(hResult))
 		{
 			LOGMSG("IDXGIFactory::EnumAdapters failed.", hResult);
 		}
 
-		hResult = dxgiAdapter->GetDesc(&adapterDesc);
+		hResult = adapter->GetDesc(&adapterDesc);
 		if (FAILED(hResult))
 		{
 			LOGMSG("IDXGIAdapter::GetDesc failed.", hResult);
@@ -54,25 +55,26 @@ namespace ue
 		//Init VideoCardInfo
 		_videoCardInfo = std::make_unique<VideoCardInfo>(adapterDesc.Description, adapterDesc.DedicatedVideoMemory/1024/1024);
 
-		hResult=dxgiAdapter->EnumOutputs(0, dxgiOutput.GetAddressOf());
+		hResult=adapter->EnumOutputs(0, output.GetAddressOf());
 		if (FAILED(hResult))
 		{
 			LOGMSG("IDXGIAdapter::EnumOutputs failed.", hResult);
 		}
 
-		hResult = dxgiOutput->GetDisplayModeList(colorFormat, DXGI_ENUM_MODES_INTERLACED, &numModes, nullptr);
+		hResult = output->GetDisplayModeList(colorFormat, DXGI_ENUM_MODES_INTERLACED, &numModes, nullptr);
 		if (FAILED(hResult))
 		{
 			LOGMSG("IDXGIOutput::GetDisplayModeList failed.", hResult);
 		}
 
 		modeDescs = std::make_unique<DXGI_MODE_DESC[]>(numModes);
-		hResult = dxgiOutput->GetDisplayModeList(colorFormat, DXGI_ENUM_MODES_INTERLACED, &numModes, modeDescs.get());
+		hResult = output->GetDisplayModeList(colorFormat, DXGI_ENUM_MODES_INTERLACED, &numModes, modeDescs.get());
 		if (FAILED(hResult))
 		{
 			LOGMSG("IDXGIOutput::GetDisplayModeList failed.", hResult);
 		}
 
+		//Get maximum support refresh rate on screen size.
 		for (UINT i = 0; i < numModes; i++)
 		{
 			if (modeDescs[i].Width == static_cast<UINT>(_window->GetScreenWidth()))
@@ -85,7 +87,8 @@ namespace ue
 			}
 		}
 
-		this->CreateDeviceAndSwapChain();
+		this->CreateDevice(adapter.Get());
+		this->CreateSwapChain(factory.Get());
 		this->CreateRenderTargetView();
 		this->CreateDepthStencilBuffer();
 		this->CreateDepthStencilView();
@@ -96,17 +99,24 @@ namespace ue
 		this->CreateRasterizerState(_rasterizerWireframeState.GetAddressOf(),true);
 		this->CreateViewPort();
 
-
-		_deviceContext->OMSetRenderTargets(1, _renderTargetView.GetAddressOf(), _depthStencilView.Get());
 		_deviceContext->OMSetDepthStencilState(_depthStencilState.Get(), 1);
 		_deviceContext->RSSetState(_rasterizerState.Get());
-		_deviceContext->RSSetViewports(1, _viewport.get());
+
+#if OUTPUT_VIDEO_CARD_INFO == 1
+		std::wcout << " Video Card Info: " << _videoCardInfo->GetVideoCardName() << " (" << _videoCardInfo->GetDedicatedMemory() << "MB)" << std::endl;
+#endif
+
+#if OUTPUT_SCREEN_REFRESH_RATE_INFO == 1
+		std::cout << " Ssreen Refresh Rate: " << _refreshRate.Numerator / _refreshRate.Denominator<<"Hz" << std::endl;
+#endif
 	}
 
 	void DX11GraphicsController::BeginRender()
 	{
 		_deviceContext->ClearRenderTargetView(_renderTargetView.Get(), _clearColor);
 		_deviceContext->ClearDepthStencilView(_depthStencilView.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0);
+		_deviceContext->OMSetRenderTargets(1, _renderTargetView.GetAddressOf(), _depthStencilView.Get());
+		_deviceContext->RSSetViewports(1, _viewport.get());
 	}
 
 	void DX11GraphicsController::EndRender()
@@ -140,57 +150,71 @@ namespace ue
 	{
 	}
 
-	void DX11GraphicsController::CreateDeviceAndSwapChain()
+	void DX11GraphicsController::CreateDevice(IDXGIAdapter* adapter)
+	{
+		HRESULT hResult{ 0 };
+		D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_1;
+		D3D_DRIVER_TYPE driverType = D3D_DRIVER_TYPE_HARDWARE;
+		UINT creationFlags = 0;
+
+#if ENABLE_DEBUG_LAYER == 1
+		// If the project is in a debug build, enable the debug layer.
+		creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+		if (adapter != nullptr)
+		{
+			driverType = D3D_DRIVER_TYPE_UNKNOWN;
+		}
+
+		hResult = D3D11CreateDevice(adapter, driverType, nullptr, creationFlags, &featureLevel, 1, D3D11_SDK_VERSION, _device.GetAddressOf(), nullptr, _deviceContext.GetAddressOf());
+		if (FAILED(hResult))
+		{
+			LOGMSG("D3D11CreateDevice failed.", hResult);
+		}
+	}
+
+	void DX11GraphicsController::CreateSwapChain(IDXGIFactory2* factory)
 	{
 		HRESULT hResult = HRESULT(0);
-		DXGI_SWAP_CHAIN_DESC swapChainDesc = { 0 };
-		D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
+		DXGI_SWAP_CHAIN_DESC1 swapChainDesc = { 0 };
+		std::unique_ptr< DXGI_SWAP_CHAIN_FULLSCREEN_DESC> fullscreenDescPtr{};
+		
 
-		swapChainDesc.BufferCount = 1;
-		swapChainDesc.BufferDesc.Width = _window->GetScreenWidth();
-		swapChainDesc.BufferDesc.Height = _window->GetScreenHeight();
-		swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+		swapChainDesc.BufferCount = 2;
+		swapChainDesc.Width = _window->GetScreenWidth();
+		swapChainDesc.Height = _window->GetScreenHeight();
+		swapChainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 		swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-		swapChainDesc.OutputWindow = reinterpret_cast<HWND>(_window->GetWindowPtr());
+		swapChainDesc.Scaling = DXGI_SCALING_NONE;
 
 		// Turn off multisampling
 		swapChainDesc.SampleDesc.Count = 1;
 		swapChainDesc.SampleDesc.Quality = 0;
-		swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-		swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
-		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+		swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;
+		swapChainDesc.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED;
 		swapChainDesc.Flags = 0;
-		if (_settings->GetVsync())
-		{
-			swapChainDesc.BufferDesc.RefreshRate = _refreshRate;
-		}
-		else
-		{
-			swapChainDesc.BufferDesc.RefreshRate = { 0,1 };
-		}
 
 		if (_window->IsFullScreen())
 		{
-			swapChainDesc.Windowed = false;
-		}
-		else
-		{
-			swapChainDesc.Windowed = true;
+			fullscreenDescPtr = std::make_unique<DXGI_SWAP_CHAIN_FULLSCREEN_DESC>();
+			fullscreenDescPtr->ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+			fullscreenDescPtr->Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+			fullscreenDescPtr->Windowed = false;
+
+			if (_settings->GetVsync())
+			{
+				fullscreenDescPtr->RefreshRate = _refreshRate;
+			}
+			else
+			{
+				fullscreenDescPtr->RefreshRate = { 0,1 };
+			}
 		}
 
-		UINT creationFlags = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
-#if defined(_DEBUG)
-		// If the project is in a debug build, enable the debug layer.
-		creationFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif
-
-		hResult = D3D11CreateDeviceAndSwapChain(
-			nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, creationFlags, &featureLevel, 1,
-			D3D11_SDK_VERSION, &swapChainDesc, _swapChain.GetAddressOf(), _device.GetAddressOf(), nullptr, _deviceContext.GetAddressOf()
-		);
+		hResult = factory->CreateSwapChainForHwnd(_device.Get(), reinterpret_cast<HWND>(_window->GetWindowPtr()), &swapChainDesc, fullscreenDescPtr.get(),nullptr,_swapChain.GetAddressOf());
 		if (FAILED(hResult))
 		{
-			LOGMSG("D3D11CreateDeviceAndSwapChain failed.", hResult);
+			LOGMSG("CreateSwapChainForHwnd failed.", hResult);
 		}
 	}
 

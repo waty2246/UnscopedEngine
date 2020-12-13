@@ -17,6 +17,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Components\CameraComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Common.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\Core\IGraphicsObject.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\DX11\DX11Config.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Graphics\IGraphicsController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Components\TimerComponent.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Core\IDisposable.h" />
