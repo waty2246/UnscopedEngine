@@ -42,7 +42,7 @@ namespace ue
 		_timer = this->GetService<TimerComponent>();
 	}
 
-	void MovementComponent::Frame()
+	void MovementComponent::Update()
 	{
 		_frameTime = _timer->GetFrameTime(TimeUnit::SECOND);
 

@@ -42,7 +42,7 @@ namespace ue
 
 			auto mockService = new MockService();
 			controller.GetServiceBuilder()->AddService<MockService>(mockService);
-			controller.Init(INITIALIZE_UNITTESTS_STATE);
+			controller.Init(InitializeState::UNIT_TEST);
 
 			ServiceProvider serviceProvider{};
 

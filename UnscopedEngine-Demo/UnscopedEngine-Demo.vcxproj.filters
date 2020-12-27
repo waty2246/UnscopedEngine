@@ -27,33 +27,48 @@
     <ClCompile Include="Demo\Components\DemoInputComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Demo\Objects\TriangleObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Demo\Models\TriangleModel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Demo\Shaders\DX11ColorShader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Demo\Components\MovementComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Demo\Objects\TextureObject.cpp">
+    <ClCompile Include="Demo\Scenes\DX11\Color\Shaders\DX11ColorShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Demo\Shaders\DX11TextureShader.cpp">
+    <ClCompile Include="Demo\Scenes\DX11\Terrain\Models\TerrainModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Demo\Models\TextureModel.cpp">
+    <ClCompile Include="Demo\Scenes\DX11\Texture\Models\TextureModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Scenes\DX11\Texture\Shaders\DX11TextureShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Scenes\DX11\Color\ColorScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Scenes\DX11\Texture\Objects\DX11TextureObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Scenes\DX11\Color\Models\PolygonModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Scenes\DX11\Color\Models\TriangleModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Scenes\DX11\Texture\TextureScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Scenes\DX11\Terrain\TerrainScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Scenes\DX11\Terrain\Shaders\DX11TerrainShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo\Scenes\DX11\Terrain\Objects\TerrainObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demo\DemoApplication.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Demo\Shaders\DX11ColorShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Demo\System\DemoEventHandler.h">
@@ -62,29 +77,55 @@
     <ClInclude Include="Demo\Components\DemoInputComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Demo\Objects\TriangleObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Demo\Models\TriangleModel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Demo\Components\MovementComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Demo\Objects\TextureObject.h">
+    <ClInclude Include="Demo\Scenes\DX11\Color\Shaders\DX11ColorShader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Demo\Shaders\DX11TextureShader.h">
+    <ClInclude Include="Demo\Scenes\DX11\Color\ColorScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Demo\Models\TextureModel.h">
+    <ClInclude Include="Demo\Scenes\DX11\Terrain\Objects\TerrainObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Terrain\Models\TerrainModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Texture\Models\TextureModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Terrain\Shaders\DX11TerrainShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Texture\Shaders\DX11TextureShader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Texture\Objects\DX11TextureObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Color\Models\PolygonModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Color\Models\TriangleModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Color\Objects\DX11PolygonObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Texture\TextureScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Demo\Scenes\DX11\Terrain\TerrainScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\Shaders\ColorPixelShader.hlsl" />
-    <FxCompile Include="Resources\Shaders\ColorVertexShader.hlsl" />
-    <FxCompile Include="Resources\Shaders\TextureVertexShader.hlsl" />
-    <FxCompile Include="Resources\Shaders\TexturePixelShader.hlsl" />
+    <FxCompile Include="Demo\Scenes\DX11\Color\HLSL\ColorPixelShader.hlsl" />
+    <FxCompile Include="Demo\Scenes\DX11\Color\HLSL\ColorVertexShader.hlsl" />
+    <FxCompile Include="Demo\Scenes\DX11\Texture\HLSL\TexturePixelShader.hlsl" />
+    <FxCompile Include="Demo\Scenes\DX11\Texture\HLSL\TextureVertexShader.hlsl" />
+    <FxCompile Include="Demo\Scenes\DX11\Terrain\HLSL\TerrainPixelShader.hlsl" />
+    <FxCompile Include="Demo\Scenes\DX11\Terrain\HLSL\TerrainVertexShader.hlsl" />
   </ItemGroup>
 </Project>

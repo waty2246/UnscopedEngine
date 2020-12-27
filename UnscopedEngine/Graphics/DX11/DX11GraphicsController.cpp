@@ -13,6 +13,10 @@ namespace ue
 	{
 	}
 
+	DX11GraphicsController::~DX11GraphicsController()
+	{
+	}
+
 	void DX11GraphicsController::Init(uintptr_t state)
 	{
 		if (_hasInit)
@@ -24,9 +28,9 @@ namespace ue
 		HRESULT hResult = HRESULT(0);
 		UINT numModes = 0;
 
-		ComPtr<IDXGIFactory2> factory;
-		ComPtr<IDXGIAdapter> adapter;
-		ComPtr<IDXGIOutput> output;
+		ComPtr<IDXGIFactory2> factory{};
+		ComPtr<IDXGIAdapter> adapter{};
+		ComPtr<IDXGIOutput> output{};
 
 		DXGI_ADAPTER_DESC adapterDesc = { 0 };
 		std::unique_ptr<DXGI_MODE_DESC[]> modeDescs;
@@ -146,10 +150,6 @@ namespace ue
 		return _deviceContext.Get();
 	}
 
-	DX11GraphicsController::~DX11GraphicsController()
-	{
-	}
-
 	void DX11GraphicsController::CreateDevice(IDXGIAdapter* adapter)
 	{
 		HRESULT hResult{ 0 };
@@ -214,7 +214,7 @@ namespace ue
 		hResult = factory->CreateSwapChainForHwnd(_device.Get(), reinterpret_cast<HWND>(_window->GetWindowPtr()), &swapChainDesc, fullscreenDescPtr.get(),nullptr,_swapChain.GetAddressOf());
 		if (FAILED(hResult))
 		{
-			LOGMSG("CreateSwapChainForHwnd failed.", hResult);
+			LOGMSG("IDXGIFactory2::CreateSwapChainForHwnd failed.", hResult);
 		}
 	}
 

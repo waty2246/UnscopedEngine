@@ -2,12 +2,11 @@
 
 #include"System/IApplication.h"
 #include"Components/CameraComponent.h"
-#include"Graphics/Core/IGraphicsObject.h"
-#include"Graphics/IGraphicsController.h"
+#include"Graphics/Core/IRenderObject.h"
+#include"Graphics/Core/IGraphicsController.h"
 #include"Components/TimerComponent.h"
 #include"Components/DemoInputComponent.h"
 #include"System/IFlexibleWindow.h"
-#include"Graphics/Core/IGraphicsObject.h"
 #include"Components/MovementComponent.h"
 
 namespace ue
@@ -19,7 +18,7 @@ namespace ue
 
 		virtual void Init(uintptr_t state) override;
 
-		virtual bool Frame() override;
+		virtual bool Update() override;
 	private:
 		void ReportFrameRate();
 		void Render();
@@ -37,7 +36,7 @@ namespace ue
 
 		std::unique_ptr< MovementComponent> _movementComponent;
 
-		std::unique_ptr<IGraphicsObject> _scene;
+		std::unique_ptr<IRenderObject> _scene;
 	};
 }
 

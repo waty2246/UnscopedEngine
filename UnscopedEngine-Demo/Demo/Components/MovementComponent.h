@@ -16,7 +16,7 @@ namespace ue
 		MovementComponent();
 
 		virtual void Init(uintptr_t state) override;
-		virtual void Frame();
+		virtual void Update();
 
 	private:
 		void SimulateGravity();

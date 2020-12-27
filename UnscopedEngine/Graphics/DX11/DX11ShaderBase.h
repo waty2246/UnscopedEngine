@@ -1,16 +1,11 @@
 #pragma once
 
-#include"DX11Common.h"
-#include"Core/IInitializable.h"
-#include"Core/ServiceConsumer.h"
+#include"DX11ShaderPart.h"
 
 namespace ue
 {
-	class DX11ShaderBase :public IInitializable, public ServiceConsumer
+	class DX11ShaderBase :public DX11ShaderPart
 	{
-	public:
-		virtual void Init(uintptr_t state) override;
-
 	protected:
 		/// <summary>
 		/// 
@@ -29,7 +24,6 @@ namespace ue
 		ComPtr<ID3D11PixelShader> _pixelShader;
 
 		
-		ServicePtr<ID3D11Device> _device;
-		ServicePtr<ID3D11DeviceContext> _deviceContext;
+		
 	};
 }

@@ -148,12 +148,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Demo\Components\MovementComponent.cpp" />
-    <ClCompile Include="Demo\Models\TextureModel.cpp" />
-    <ClCompile Include="Demo\Models\TriangleModel.cpp" />
-    <ClCompile Include="Demo\Objects\TextureObject.cpp" />
-    <ClCompile Include="Demo\Objects\TriangleObject.cpp" />
-    <ClCompile Include="Demo\Shaders\DX11ColorShader.cpp" />
-    <ClCompile Include="Demo\Shaders\DX11TextureShader.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Color\ColorScene.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Color\Models\TriangleModel.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Terrain\Models\TerrainModel.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Terrain\Objects\TerrainObject.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Terrain\Shaders\DX11TerrainShader.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Terrain\TerrainScene.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Texture\Models\TextureModel.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Color\Models\PolygonModel.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Texture\Objects\DX11TextureObject.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Color\Shaders\DX11ColorShader.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Texture\Shaders\DX11TextureShader.cpp" />
+    <ClCompile Include="Demo\Scenes\DX11\Texture\TextureScene.cpp" />
     <ClCompile Include="Demo\System\DemoEventHandler.cpp" />
     <ClCompile Include="Demo\Components\DemoInputComponent.cpp" />
     <ClCompile Include="Demo\DemoApplication.cpp" />
@@ -161,32 +167,45 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Demo\Components\MovementComponent.h" />
-    <ClInclude Include="Demo\Models\TextureModel.h" />
-    <ClInclude Include="Demo\Models\TriangleModel.h" />
-    <ClInclude Include="Demo\Objects\TextureObject.h" />
-    <ClInclude Include="Demo\Objects\TriangleObject.h" />
-    <ClInclude Include="Demo\Shaders\DX11TextureShader.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Color\Models\TriangleModel.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Terrain\Models\TerrainModel.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Terrain\TerrainScene.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Texture\Models\TextureModel.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Color\ColorScene.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Color\Models\PolygonModel.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Terrain\Objects\TerrainObject.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Texture\Objects\DX11TextureObject.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Color\Objects\DX11PolygonObject.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Terrain\Shaders\DX11TerrainShader.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Texture\Shaders\DX11TextureShader.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Texture\TextureScene.h" />
     <ClInclude Include="Demo\System\DemoEventHandler.h" />
     <ClInclude Include="Demo\Components\DemoInputComponent.h" />
     <ClInclude Include="Demo\DemoApplication.h" />
-    <ClInclude Include="Demo\Shaders\DX11ColorShader.h" />
+    <ClInclude Include="Demo\Scenes\DX11\Color\Shaders\DX11ColorShader.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Resources\Shaders\ColorPixelShader.hlsl">
+    <FxCompile Include="Demo\Scenes\DX11\Color\HLSL\ColorPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\ColorVertexShader.hlsl">
+    <FxCompile Include="Demo\Scenes\DX11\Color\HLSL\ColorVertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\TexturePixelShader.hlsl">
+    <FxCompile Include="Demo\Scenes\DX11\Terrain\HLSL\TerrainPixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Demo\Scenes\DX11\Terrain\HLSL\TerrainVertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Demo\Scenes\DX11\Texture\HLSL\TexturePixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="Resources\Shaders\TextureVertexShader.hlsl">
+    <FxCompile Include="Demo\Scenes\DX11\Texture\HLSL\TextureVertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

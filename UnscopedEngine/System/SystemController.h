@@ -15,7 +15,7 @@ namespace ue
 	public:
 		SystemController();
 
-		virtual void Init(uintptr_t state = 0)override;
+		virtual void Init(uintptr_t state = InitializeState::UNSPECIFIED)override;
 		virtual void Run(IEventHandler* eventHandler=nullptr);
 		ServiceBuilder* GetServiceBuilder()const;
 		virtual void OnKeyDown(const KeyInfo& keyDownInfo) override;
@@ -30,7 +30,7 @@ namespace ue
 		virtual ~SystemController();
 
 	private:
-		bool Frame();
+		bool Update();
 
 	private:
 		bool _hasInit;

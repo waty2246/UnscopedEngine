@@ -4,14 +4,6 @@
 
 namespace ue
 {
-	void DX11ShaderBase::Init(uintptr_t state)
-	{
-		auto graphics = this->GetService<IGraphicsController,DX11GraphicsController>();
-
-		_device = MakeService<ID3D11Device>(graphics->GetDevice());
-		_deviceContext = MakeService<ID3D11DeviceContext>(graphics->GetDeviceContext());
-	}
-
 	std::vector<uint8_t> DX11ShaderBase::InitShaders(const char* vertexCSOFile, const char* pixelCSOFile)
 	{
 		this->CreatePixelShader(pixelCSOFile);

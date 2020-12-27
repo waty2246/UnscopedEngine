@@ -20,7 +20,8 @@ namespace ue
 	class Image : public IInitializable
 	{
 	public:
-		Image(const char* fileName, ImageType imageType,ImageColorFormat colorFormat);
+		Image(const std::string& fileName, ImageType imageType, ImageColorFormat colorFormat);
+		Image(std::string&& fileName, ImageType imageType,ImageColorFormat colorFormat);
 
 		/// <summary>
 		/// Load image data from the given fileName, imageType and colorFormat

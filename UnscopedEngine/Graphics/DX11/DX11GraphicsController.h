@@ -3,7 +3,7 @@
 #include"System/IWindow.h"
 #include"DX11Common.h"
 #include"Core/ServiceConsumer.h"
-#include"Graphics/IGraphicsController.h"
+#include"Graphics/Core/IGraphicsController.h"
 
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d3d11.lib")
@@ -39,6 +39,7 @@ namespace ue
 	{
 	public:
 		DX11GraphicsController();
+		virtual ~DX11GraphicsController();
 
 		virtual void Init(uintptr_t state) override;
 
@@ -59,8 +60,6 @@ namespace ue
 		virtual ID3D11Device* GetDevice()const;
 
 		virtual ID3D11DeviceContext* GetDeviceContext()const;
-
-		virtual ~DX11GraphicsController();
 
 	private:
 		void CreateDevice(IDXGIAdapter* adapter=nullptr);

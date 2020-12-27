@@ -3,7 +3,7 @@
 
 namespace ue
 {
-	DX11Texture2D::DX11Texture2D(const char* fileName, ImageType imageType):
+	DX11Texture2D::DX11Texture2D(std::string&& fileName, ImageType imageType):
 		_hasInit(false),
 		_fileName(fileName),
 		_imageType(imageType),
@@ -14,6 +14,11 @@ namespace ue
 		_usage(D3D11_USAGE_DEFAULT),
 		_cpuAccess(0),
 		_colorFormat(DXGI_FORMAT_R8G8B8A8_UNORM)
+	{
+	}
+
+	DX11Texture2D::DX11Texture2D(const std::string& fileName, ImageType imageType):
+		DX11Texture2D(std::string(fileName),imageType)
 	{
 	}
 
@@ -44,7 +49,7 @@ namespace ue
 				break;
 			}
 		}
-		auto image= std::make_unique<Image>(_fileName.c_str(), _imageType, imageColorFormat);
+		auto image= std::make_unique<Image>(_fileName, _imageType, imageColorFormat);
 		image->Init(state);
 
 		UINT mipLevels = 0; 

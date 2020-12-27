@@ -22,7 +22,7 @@ namespace ue
 		_window = this->GetService<IWindow>();
 	}
 
-	void DemoInputComponent::Frame()
+	void DemoInputComponent::Update()
 	{
 	}
 

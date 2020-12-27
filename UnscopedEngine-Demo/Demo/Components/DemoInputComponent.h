@@ -14,7 +14,7 @@ namespace ue
 
 		virtual void Init(uintptr_t state)override;
 
-		void Frame();
+		void Update();
 
 		bool IsTerminateTrigger();
 

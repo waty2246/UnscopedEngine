@@ -1,18 +1,16 @@
 #pragma once
 
-#include<cstdint>
+#include"Common.h"
 #include"IDisposable.h"
-
-//Mark current reinitialize state inside an initializable class as not process when Init method has called.
-#define INITIALIZE_IGNORED_STATE uintptr_t(0)
-
-//Mark the first initialize state inside an initializable class as not process.
-#define INITIALIZE_UNITTESTS_STATE uintptr_t(1)
-
-#define INITIALIZE_CONTINUE_STATE uintptr_t(2)
 
 namespace ue
 {
+	enum InitializeState : uintptr_t
+	{
+		UNSPECIFIED=0,	// The Current state when invoke IInitializable::Init is unspecified
+		UNIT_TEST=1,	// The current state when invoke IInitializable::Init is inside a unit test
+	};
+
 	/// <summary>
 	/// Base class for component that need initialization before used.
 	/// </summary>

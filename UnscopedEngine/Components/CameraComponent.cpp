@@ -37,7 +37,7 @@ namespace ue
 		DirectX::XMStoreFloat4x4A(&_orthoMatrix, DirectX::XMMatrixOrthographicLH(static_cast<float>(window->GetScreenWidth()), static_cast<float>(window->GetScreenHeight()), _nearPlane, _farPlane));
 	}
 
-	void CameraComponent::Frame()
+	void CameraComponent::Update()
 	{
 		DirectX::XMVECTOR upVector = DirectX::XMVectorSet(_worldMatrix._21, _worldMatrix._22, _worldMatrix._23, _worldMatrix._24);
 		DirectX::XMVECTOR cameraPosition = DirectX::XMLoadFloat3A(&_cameraPosition);

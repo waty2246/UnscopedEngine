@@ -13,7 +13,8 @@ namespace ue
 	class DX11Texture2D :public IInitializable, public ServiceConsumer
 	{
 	public:
-		DX11Texture2D(const char* fileName,ImageType imageType);
+		DX11Texture2D(const std::string& fileName, ImageType imageType);
+		DX11Texture2D(std::string&& fileName,ImageType imageType);
 
 		/// <summary>
 		/// Load Texture-2D from the given fileName and imageType.

@@ -2,7 +2,12 @@
 
 namespace ue
 {
-	Image::Image(const char* fileName, ImageType imageType, ImageColorFormat colorFormat):
+	Image::Image(const std::string& fileName, ImageType imageType, ImageColorFormat colorFormat) :
+		Image(std::string(fileName), imageType, colorFormat)
+	{
+	}
+
+	Image::Image(std::string&& fileName, ImageType imageType, ImageColorFormat colorFormat):
 		_hasInit(false),
 		_fileName(fileName),
 		_imageType(imageType),

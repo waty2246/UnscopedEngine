@@ -9,7 +9,7 @@ namespace ue
 	SystemController::SystemController():
 		_serviceBuilder(new ServiceBuilder()),
 		_application(nullptr),_window(nullptr),
-		_lastState(INITIALIZE_IGNORED_STATE),
+		_lastState(InitializeState::UNSPECIFIED),
 		_hasInit(false)
 	{
 	}
@@ -26,7 +26,7 @@ namespace ue
 		_serviceBuilder->Build();
 
 		//Ignore Unit Tests
-		if (INITIALIZE_UNITTESTS_STATE == state)
+		if (InitializeState::UNIT_TEST == state)
 		{
 			return;
 		}
@@ -80,7 +80,7 @@ namespace ue
 				//Calculate frame time
 				_timer->Tick();
 
-				if (!Frame())
+				if (!Update())
 				{
 					done = true;
 				}
@@ -100,9 +100,9 @@ namespace ue
 	{
 	}
 
-	bool SystemController::Frame()
+	bool SystemController::Update()
 	{
-		return _application->Frame();
+		return _application->Update();
 	}
 
 	void SystemController::OnKeyDown(const KeyInfo& keyDownInfo)

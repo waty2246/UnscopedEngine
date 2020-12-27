@@ -12,7 +12,7 @@ namespace ue
 		CameraComponent();
 
 		virtual void Init(uintptr_t state) override;
-		void Frame();
+		void Update();
 
 		void SetPosition(float x, float y, float z) ;
 		void SetRotation(float roll, float pitch, float yaw);

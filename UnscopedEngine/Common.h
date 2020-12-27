@@ -1,26 +1,27 @@
 #pragma once
 
+//types
+#include<cstdint>
 #include<string>
-#include<locale>
-#include<codecvt>
+#include<unordered_map>
+#include<map>
+#include<list>
+#include<tuple>
 
+//streams
 #include<iostream>
 #include<fstream>
 #include<sstream>
 
-#include<unordered_map>
-#include<map>
-#include<list>
-
-#include<tuple>
-#include<functional>
-
+//Utilities
 #include<chrono>
-#include<math.h>
+#include<functional>
+#include<locale>
+#include<codecvt>
+#include<cmath>
 
 #define WIN32_LEAN_AND_MEAN
 #include<Windows.h>
-
 #include<DirectXMath.h>
 
 #define API_FAILED(returnValue) returnValue == FALSE

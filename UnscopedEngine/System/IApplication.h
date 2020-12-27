@@ -14,6 +14,6 @@ namespace ue
 		/// true - to continue processing
 		/// false - to exit application
 		/// </returns>
-		virtual bool Frame() = 0;
+		virtual bool Update() = 0;
 	};
 }
