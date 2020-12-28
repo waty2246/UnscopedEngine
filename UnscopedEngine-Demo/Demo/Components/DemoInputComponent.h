@@ -35,10 +35,8 @@ namespace ue
 	private:
 		bool _hasInit;
 		MouseInfo _mouseInfo;
-		KeyInfo _keyInfo;
 
-		int _mouseX;
-		int _mouseY;
+		std::unique_ptr<bool[]> _keyState;
 
 		ServicePtr<IWindow> _window;
 

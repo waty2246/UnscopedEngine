@@ -4,7 +4,7 @@
 
 namespace ue
 {
-	enum class KeyCode
+	enum KeyCode : uint8_t
 	{
 		NONE = 0,
 		SHIFT = VK_SHIFT,
@@ -18,7 +18,7 @@ namespace ue
 		A = 0x41, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, GetX, GetY, Z,
 		F1 = VK_F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,
 		ESCAPE = VK_ESCAPE,
-		UNKNOWN = 999
+		UNKNOWN = 255
 	};
 
 	enum class MouseButton

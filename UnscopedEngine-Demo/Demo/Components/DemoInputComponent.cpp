@@ -4,9 +4,7 @@ namespace ue
 {
 	DemoInputComponent::DemoInputComponent():
 		_hasInit(false),
-		_mouseX(0),
-		_mouseY(0),
-		_keyInfo(KeyCode::NONE, false),
+		_keyState(std::make_unique<bool[]>(255)),
 		_mouseInfo(MouseButton::NONE, 0, 0, 0)
 	{
 	}
@@ -28,64 +26,61 @@ namespace ue
 
 	bool DemoInputComponent::IsTerminateTrigger()
 	{
-		return _keyInfo.IsDown() && _keyInfo.GetKeyCode() == KeyCode::ESCAPE;
+		return _keyState[KeyCode::ESCAPE];
 	}
 
 	bool DemoInputComponent::IsMoveLeft()
 	{
-		return _keyInfo.IsDown() && _keyInfo.GetKeyCode() == KeyCode::A;
+		return _keyState[KeyCode::A];
 	}
 
 	bool DemoInputComponent::IsMoveRight()
 	{
-		return _keyInfo.IsDown() && _keyInfo.GetKeyCode() == KeyCode::D;
+		return _keyState[KeyCode::D];
 	}
 
 	bool DemoInputComponent::IsMoveForward()
 	{
-		return _keyInfo.IsDown() && _keyInfo.GetKeyCode() == KeyCode::W;
+		return _keyState[KeyCode::W];
 	}
 
 	bool DemoInputComponent::IsMoveBackward()
 	{
-		return _keyInfo.IsDown() && _keyInfo.GetKeyCode() == KeyCode::S;
+		return _keyState[KeyCode::S];
 	}
 
 	bool DemoInputComponent::IsLookLeft()
 	{
-		return false;
+		return _keyState[KeyCode::LEFT];
 	}
 
 	bool DemoInputComponent::IsLookRight()
 	{
-		return false;
+		return _keyState[KeyCode::RIGHT];
 	}
 
 	bool DemoInputComponent::IsLookUp()
 	{
-		return false;
+		return _keyState[KeyCode::UP];
 	}
 
 	bool DemoInputComponent::IsLookDown()
 	{
-		return false;
+		return _keyState[KeyCode::DOWN];
 	}
 
 	void DemoInputComponent::CaptureMouseEvent(const MouseInfo& mouseInfo)
 	{
 		_mouseInfo = mouseInfo;
-		_mouseX = mouseInfo.GetMousePositionX();
-		_mouseY = mouseInfo.GetMousePositionY();
 	}
 
 	void DemoInputComponent::CaptureKeyEvent(const KeyInfo& keyInfo)
 	{
-		_keyInfo = keyInfo;
+		_keyState[keyInfo.GetKeyCode()] = keyInfo.IsDown();
 	}
 
 	void DemoInputComponent::ResetStates()
 	{
-		_keyInfo = { KeyCode::UNKNOWN,false };
 		_mouseInfo = { MouseButton::UNKNOWN,_mouseInfo.GetMousePositionX(),_mouseInfo.GetMousePositionY(),0 };
 	}
 }
