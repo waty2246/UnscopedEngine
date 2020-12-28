@@ -32,7 +32,7 @@ namespace ue
         _camera = this->GetService<CameraComponent>();
         _camera->Init(state);
         decltype(auto) camPos = _camera->GetPosition();
-        _camera->SetPosition(camPos.x, 2.0f, camPos.z);
+        _camera->SetPosition(camPos.x, 4.0f, camPos.z);
 
         _timer= this->GetService<TimerComponent>();
         _input = this->GetService<DemoInputComponent>();

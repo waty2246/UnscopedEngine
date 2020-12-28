@@ -9,6 +9,7 @@ namespace ue
 
 	void TerrainScene::Init(uintptr_t state)
 	{
+		_graphics = this->GetService<IGraphicsController>();
 		_terrainObject->Init(state);
 	}
 
@@ -19,7 +20,9 @@ namespace ue
 
 	void TerrainScene::Render()
 	{
+		_graphics->TurnOnWireframe();
 		_terrainObject->Render();
+		_graphics->TurnOffWireframe();
 	}
 
 }

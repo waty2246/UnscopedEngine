@@ -20,9 +20,7 @@ namespace ue
 
 	void TextureScene::Render()
 	{
-		//_graphics->TurnOnWireframe();
 		_textureObject->Render();
-		//_graphics->TurnOffWireframe();
 	}
 }
 
