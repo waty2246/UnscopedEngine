@@ -66,7 +66,7 @@ namespace ue
 		const float dtr = DirectX::XM_PI / 180.f;
 		_cameraRotation.x = roll * dtr;
 		_cameraRotation.y = pitch * dtr;
-		_cameraPosition.z = yaw * dtr;
+		_cameraRotation.z = yaw * dtr;
 	}
 
 	void CameraComponent::SetFocus(float x, float y, float z)

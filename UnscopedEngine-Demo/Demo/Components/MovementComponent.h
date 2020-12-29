@@ -50,10 +50,12 @@ namespace ue
 		float _goBackwardSpeed;
 		float _goLeftSpeed;
 		float _goRightSpeed;
-		float _lookLeftSpeed;
-		float _lookRightSpeed;
-		float _lookUpSpeed;
-		float _lookDownSpeed;
+
+		float _lookLeftSpeed,_lookLeftAngle;
+		float _lookRightSpeed,_lookRightAngle;
+		float _lookUpSpeed,_lookUpAngle;
+		float _lookDownSpeed,_lookDownAngle;
+
 		float _straightRadians;
 		float _sideRadians;
 
